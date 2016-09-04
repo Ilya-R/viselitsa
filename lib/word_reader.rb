@@ -1,6 +1,6 @@
 class WordReader
   def read_from_args
-    return ARGV[0]
+    ARGV[0]
   end
 
   def get_one_random_word_from_file(file_name)
