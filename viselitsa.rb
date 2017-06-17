@@ -1,4 +1,4 @@
-current_path = "./" + File.dirname(__FILE__)
+current_path = File.dirname(__FILE__)
 
 require current_path + "/lib/game.rb"
 require current_path + "/lib/result_printer.rb"
