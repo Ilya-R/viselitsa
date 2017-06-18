@@ -1,3 +1,4 @@
+# Класс отвечающий за вывод результатов в консоль
 class ResultPrinter
   def initialize(game)
     @status_image = []
@@ -5,11 +6,11 @@ class ResultPrinter
     current_path = File.dirname(__FILE__)
     counter = 0
 
-    while counter <= game.max_errors do
+    while counter <= game.max_errors
       file_name = current_path + "/../image/#{counter}.txt"
 
       if File.exist?(file_name)
-        f = File.new(file_name, "r:UTF-8")
+        f = File.new(file_name, 'r:UTF-8')
         @status_image << f.read
         f.close
       else
@@ -30,13 +31,13 @@ class ResultPrinter
 
     puts "\nСлово: #{get_word_for_print(game.letters, game.good_letters)}"
 
-    puts "\nОшибки: #{game.bad_letters.join(", ")}"
+    puts "\nОшибки: #{game.bad_letters.join(', ')}"
 
     print_viselitsa(game.errors)
 
     if game.lost?
       puts "\nВы проиграли :(\n"
-      puts "Загаданное слово было: " + game.letters.join("")
+      puts 'Загаданное слово было: ' + game.letters.join('')
       puts
     elsif game.won?
       puts "Поздравляем, вы выиграли!\n\n"
@@ -46,20 +47,20 @@ class ResultPrinter
   end
 
   def get_word_for_print(letters, good_letters)
-    result = ""
+    result = ''
 
-    for item in letters do
-      if good_letters.include?(item)
-        result += item + " "
-      else
-        result += "__ "
-      end
+    letters.each do |item|
+      result += if good_letters.include?(item)
+                  item + ' '
+                else
+                  '__ '
+                end
     end
 
-    return result
+    result
   end
 
   def cls
-    system "clear" or system "cls"
+    system 'clear' || system('cls')
   end
 end

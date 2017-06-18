@@ -1,5 +1,6 @@
-require "unicode"
+require 'unicode'
 
+# Класс с основной логикой игры
 class Game
   attr_reader :errors, :letters, :good_letters, :bad_letters, :status
   attr_accessor :version
@@ -18,10 +19,10 @@ class Game
   end
 
   def get_letters(slovo)
-    if (slovo == nil || slovo == "")
-      abort "Задано пустое слово, не о чем играть. Закрываемся."
+    if slovo.nil? || slovo == ''
+      abort 'Задано пустое слово, не о чем играть. Закрываемся.'
     else
-      slovo = slovo.encode("UTF-8")
+      slovo = slovo.encode('UTF-8')
     end
 
     Unicode.upcase(slovo).split('')
@@ -35,16 +36,15 @@ class Game
     MAX_ERRORS - @errors
   end
 
-  def is_good?(letter)
+  def good?(letter)
     @letters.include?(letter) ||
-      (letter == "Е" && @letters.include?("Ё")) ||
-      (letter == "Ё" && @letters.include?("Е")) ||
-      (letter == "И" && @letters.include?("Й")) ||
-      (letter == "Й" && @letters.include?("И"))
+      (letter == 'Е' && @letters.include?('Ё')) ||
+      (letter == 'Ё' && @letters.include?('Е')) ||
+      (letter == 'И' && @letters.include?('Й')) ||
+      (letter == 'Й' && @letters.include?('И'))
   end
 
   def add_letter_to(letters, letter)
-
     letters << letter
 
     case letter
@@ -82,7 +82,7 @@ class Game
 
     return if repeated?(letter)
 
-    if is_good?(letter)
+    if good?(letter)
       add_letter_to(@good_letters, letter)
 
       @status = :won if solved?
@@ -97,11 +97,9 @@ class Game
 
   def ask_next_letter
     puts "\nВведите следующую букву"
-    letter = ""
+    letter = ''
 
-    while letter == "" do
-      letter = STDIN.gets.encode("UTF-8").chomp
-    end
+    letter = STDIN.gets.encode('UTF-8').chomp while letter == ''
 
     next_step(letter)
   end
